@@ -1,0 +1,20 @@
+@charset "utf-8";
+/* CSS Document */
+
+#tipostaximtdiv {display:none;}
+#formataximtdiv {display:none;}
+#icon-index{
+	background: url(../imagenes/logo-footer.png) no-repeat center center !important;
+	width: 220px !important;
+	height: 29px !important;
+	margin-top: 9px !important;
+}
+
+#acf-medidasinter{display: none;}
+#acf-medidasflota{display: none;}
+#acf-medidaspop{display: none;}
+#acf-publiarchi{display: none;}
+
+
+
+
