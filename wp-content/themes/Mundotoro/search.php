@@ -18,7 +18,7 @@
 				$LnDonde = get_field('posicion');
 				
 				$LsClass 		= '';
-				$LnDimenciones	= array(330, 186);
+				$LnDimenciones	= array(670, 186);
 				$LnSizeImg		= 2;
 				
 				if($LnIndex == 1){
@@ -27,7 +27,7 @@
 					$LsClass = 'homeright';
 				}
 				
-				echo '<article class="'. $LsClass .'">';
+				echo '<article>';
 						getImagenMT($post->ID, $LnDimenciones, $LnSizeImg);
 				echo '	<span class="post_content">';
 							getTitulo($post->ID);
@@ -57,9 +57,8 @@
 </style>
 				<article id="post-0" class="post no-results not-found">
 					<header class="entry-header">
-						<h1 class="entry-title" style="text-align: center; margin-bottom: 12px; font-size: 16px; font-weight: normal;"><?php _e( 'Nothing Found', 'twentyeleven' ); ?></h1>
+						<h1 class="entry-title" style="text-align: center; margin-bottom: 12px; font-size: 16px; font-weight: normal;">No encontramos nada</h1>
 					</header><!-- .entry-header -->
-
 					<div class="entry-content">
 						<p style="margin-bottom: 12px; text-align: justify;">Lo sentimos, pero no corresponde a sus criterios de búsqueda. Por favor, inténtelo de nuevo con algunas palabras clave diferentes.</p>
 						<?php get_search_form(); ?>

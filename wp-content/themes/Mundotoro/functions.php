@@ -630,7 +630,7 @@
             $calendar_output .= "\n\t\t<th scope=\"col\">";
             if ($dcount > 4)
             {
-                $calendar_output .= "<span style='color:#FF0000;'>";
+                $calendar_output .= "<span style='color:#990000;'>";
             }
             $calendar_output .= $day_name;
             if ($dcount > 4)

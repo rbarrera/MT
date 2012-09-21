@@ -15,7 +15,14 @@
     
     class CoreSlide extends coreDevExtends{
         public function __construct(){            
-            $this->crearPost(array('Slider', 'Slider'), 'Slider', 'postslidemt', array('title'));
+          $this->crearPost(
+            array('Slider', 'Slider'), 
+            'Slider', 
+            'postslidemt', 
+            array('title'),
+            array(),
+            false
+          );
             $this->setMenuPrincipal('Slider', 8, 'attach_image');
             
             $this->addCoreAcciones();

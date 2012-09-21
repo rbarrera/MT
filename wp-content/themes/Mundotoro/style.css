@@ -124,14 +124,14 @@ header{
 
 h1, h2, h3, h4, h5, h6 { font-weight: bold; }
 
-h1{ font-size: 30px; color: red;}
+h1{ font-size: 30px; color: #990000;}
 
 a, a:active, a:visited {
   color: #333333;
   text-decoration: none;
 }
 
-a:hover { color: #ea1c1c; text-decoration: underline;}
+a:hover { color:#990000; text-decoration: underline;}
 
 div#container {
     margin: 0 auto 0;
@@ -385,7 +385,7 @@ div.hotnewslist{
 }
 
 div#news-sticker b{
-	color: #ff0000;
+	color: #990000;
 }
 
 div#news-sticker a{
@@ -728,7 +728,7 @@ div#especiales .calendario th[title=Saturday], div#especiales .calendario th[tit
 
 {
 
-  color: red;
+  color: #990000;
 
 }
 
@@ -829,10 +829,6 @@ div#especiales .calendario caption .next-month
   height: 9px;
 
   display: block;
-
-}
-
-
 
 }
 
@@ -1128,7 +1124,7 @@ aside#sidebar {
 }
 
 .most-read ol {
-  color: red;
+  color: #990000;
   display: block;
   font-weight: bold;
   font-size: 12px;
@@ -1169,11 +1165,11 @@ aside#sidebar {
 }
 
 .most-read a:hover{
-  color: #ea1c1c;
+  color: #990000;
 }
 
 .most-read a.list-link:hover{
-    color: #ea1c1c;
+    color: #990000;
 }
 
 
@@ -1251,7 +1247,7 @@ ul#carousel #item .title{
 }
 
 .login-form b{
-	color: red
+	color: #990000
 }
 
 .login-form label, .login-form input{
@@ -1409,7 +1405,7 @@ h3#comments-title {
 }
 .comment-meta a:active,
 .comment-meta a:hover {
-	color: #ff4b33;
+	color: #990000;
 }
 .commentlist .even {
 }
@@ -1425,7 +1421,7 @@ a.comment-edit-link {
 }
 .reply a:hover,
 a.comment-edit-link:hover {
-	color: #ff4b33;
+	color: #990000;
 }
 .commentlist .children {
 	list-style: none;
@@ -1500,7 +1496,7 @@ h3#reply-title {
 	line-height: 18px;
 }
 #respond .required {
-	color: #ff4b33;
+	color: #990000;
 	font-weight: bold;
 }
 #respond label {
@@ -1532,53 +1528,7 @@ h3#reply-title {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/** jQuery Plugins **/
 .jcarousel-skin-tango .jcarousel-container {
 }
 
@@ -1931,48 +1881,3 @@ h3#reply-title {
 .nivo-controlNav a.active {
 	font-weight:bold;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
