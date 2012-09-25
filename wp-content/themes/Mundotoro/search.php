@@ -33,7 +33,7 @@
 							getTitulo($post->ID);
 							getMetaDatosSub($post->ID);
 				echo '		<span class="post-content">';
-								the_content('Leer mas...', true);
+          getPrevioNoticia($post->ID);
 				echo '		</span>';
 				echo '	</span>';
 				echo '<span class="hr"></span>';

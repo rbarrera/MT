@@ -2,3 +2,6 @@
 
 # Configuracion de WP
 wp-config.php
+
+# Imagenes subidas
+wp-content/uploads/*
