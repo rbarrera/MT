@@ -833,7 +833,7 @@ function getPaises($selected = false){
   global $paises;
   $return = '';
   if( $selected == false || empty($selected))
-    $return .= "<option>Seleccione uno</option>";
+    $return .= "<option value=\"\">Seleccione uno</option>";
   foreach($paises as $pais){
     $is_selected = ($selected === $pais) ? "selected=\"selected\"" : '';
     $return .= "<option value=\"".$pais."\"".$is_selected.">".$pais."</option>";

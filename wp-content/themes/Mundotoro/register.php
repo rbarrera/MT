@@ -3,75 +3,71 @@
  * Template Name: Register Form
  */
 global $wpdb, $user_ID, $paises;
+if($user_ID){
+  wp_redirect( home_url() ); exit;  
+}
 if($_POST){
-  if (true){//!$user_ID) {
-    $user_name = $wpdb->escape($_POST['username']);
-    $email = $wpdb->escape($_POST['email']);
-    $first_name = $wpdb->escape($_POST['first_name']);
-    $last_name = $wpdb->escape($_POST['last_name']);
-    $country = $wpdb->escape($_POST['country']);
-    $phone = $wpdb->escape($_POST['phone']);
-    $address = $wpdb->escape($_POST['address']);
-    $city = $wpdb->escape($_POST['city']);
-    $password = $wpdb->escape($_POST['password']);
-    $password_conf = $wpdb->escape($_POST['password_conf']);
-
-    $errors_count = array();
-    # Validar los datos del usuario
-    if(empty($user_name)){
-      $errors_count [] = "El nombre de usario es obligatorio";
-    }else
-    if(username_exists($user_name)){
-      $errors_count [] = "El usuario ya existe";
-    }
-
-    # Correo electronico valido y unico
-    if(empty($email)){
-      $errors_count [] = "El correo electronico es obligatorio";
-    }else
-    if(email_exists($email)){
-      $errors_count [] = "El correo electronico ya esta registrado";
-    }else{
-      if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
-        $errors_count [] = "El correo electronico no es valido";
-      }
-    }
-
-    # Passwords que coincidan
-    if(empty($password) || empty($password_conf)){
-      $errors_count [] = "La contrase&ntilde;a es obligatoria";
-    }else
-    if($password !== $password_conf){
-      $errors_count [] = "Las contrase&ntilde;as no coinciden";
-    }else
-    if(strlen($password) < 6){
-      $errors_count [] = "La contrase&ntilde;a debe ser mayor a <strong>6</strong> caracteres";
-    }
-
-    # Agregar el usuario a la base de datos
-    if(count($errors_count > 0)){
-      $user = wp_create_user($user_name,$password,$email);
-      if(!($user instanceof WP_Error)){
-        update_user_meta($user,'first_name',$first_name);
-        update_user_meta($user,'last_name',$last_name);
-        add_user_meta($user,'country',$country);
-        add_user_meta($user,'phone',$phone);
-        add_user_meta($user,'address',$address);
-        add_user_meta($user,'city',$city);
-        $user_object = wp_signon(array(
-          'user_login' => $user_name,
-          'user_password' => $password
-        ));
-        if($user_object instanceof WP_User){
-          wp_redirect( home_url() ); exit;
-        }
-      }else{
-        // @TODO manejar los errores de WP
-      }
-    }
+  $user_name = $wpdb->escape($_POST['username']);
+  $email = $wpdb->escape($_POST['email']);
+  $first_name = $wpdb->escape($_POST['first_name']);
+  $last_name = $wpdb->escape($_POST['last_name']);
+  $country = $wpdb->escape($_POST['country']);
+  $phone = $wpdb->escape($_POST['phone']);
+  $address = $wpdb->escape($_POST['address']);
+  $city = $wpdb->escape($_POST['city']);
+  $password = $wpdb->escape($_POST['password']);
+  $password_conf = $wpdb->escape($_POST['password_conf']);
+  
+  $register_errors = array();
+  # Validar los datos del usuario
+  if(empty($user_name)){
+    $register_errors [] = "El nombre de usario es obligatorio";
   }
-  else {
-    //wp_redirect( home_url() ); exit;  
+  if(username_exists($user_name)){
+    $register_errors [] = "El usuario ya existe";
+  }
+
+  # Correo electronico valido y unico
+  if(empty($email)){
+    $register_errors [] = "El correo electronico es obligatorio";
+  }else
+    if(email_exists($email)){
+      $register_errors [] = "El correo electronico ya esta registrado";
+    }else
+      if(!filter_var($email,FILTER_VALIDATE_EMAIL)){
+        $register_errors [] = "El correo electronico no es valido";
+      }
+
+  # Passwords que coincidan
+  if(empty($password) || empty($password_conf)){
+    $register_errors [] = "La contrase&ntilde;a es obligatoria";
+  }else
+    if($password != $password_conf){
+      $register_errors [] = "Las contrase&ntilde;as no coinciden";
+    }else
+      if(strlen($password) < 6){
+        $register_errors [] = "La contrase&ntilde;a debe ser mayor a <strong>6</strong> caracteres";
+      }
+  # Agregar el usuario a la base de datos
+  if(!count($register_errors) > 0){
+    $user = wp_create_user($user_name,$password,$email);
+    if(!($user instanceof WP_Error)){
+      update_user_meta($user,'first_name',$first_name);
+      update_user_meta($user,'last_name',$last_name);
+      add_user_meta($user,'country',$country);
+      add_user_meta($user,'phone',$phone);
+      add_user_meta($user,'address',$address);
+      add_user_meta($user,'city',$city);
+      $user_object = wp_signon(array(
+        'user_login' => $user_name,
+        'user_password' => $password
+      ));
+      if($user_object instanceof WP_User){
+        wp_redirect( home_url() ); exit;
+      }
+    }else{
+      // @TODO manejar los errores de WP
+    }
   }
 }
 ?>
@@ -82,8 +78,8 @@ if($_POST){
       <div class="register-form">
         <div class="login-box" >
         <h1>Registro de Usuario</h1>
-        <?php if(count($errors_count) > 0):?>
-          <div class="error"><?php echo implode("<br>",$errors_count); ?></div>
+        <?php if(count($register_errors) > 0):?>
+          <div class="error"><?php echo implode("<br>",$register_errors); ?></div>
         <?php endif; ?>
         <form method="post" action="" id="register_form" name="register_form">
           <fieldset>
@@ -122,7 +118,7 @@ if($_POST){
             <div class="input">
               <label for="country">Pais</label>
               <select name="country" id="country">
-                <?php echo getPaises((isset($country) ? $_POST['country'] : 'none')) ?>
+                <?php echo getPaises(((isset($country) & !empty($country)) ? $_POST['country'] : false)) ?>
               </select>
             </div>
             <div class="input">
