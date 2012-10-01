@@ -185,22 +185,3 @@
 	function subirbuscar(){		
 		jQuery("#searchform").submit();	
 	}
-	
-	
-
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	

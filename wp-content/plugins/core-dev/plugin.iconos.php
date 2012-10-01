@@ -15,7 +15,14 @@
     
     class CoreIcono extends coreDevExtends{
         public function __construct(){            
-            $this->crearPost(array('Icono', 'Iconos'), 'Iconos', 'posticonosmt', array('title'));
+          $this->crearPost(
+            array('Icono', 'Iconos'), 
+            'Iconos', 
+            'posticonosmt', 
+            array('title'),
+            array(),
+            false
+          );
             $this->setMenuPrincipal('Iconos', 9, 'equalizer');
             
             $this->addCoreAcciones();

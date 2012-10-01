@@ -630,7 +630,7 @@
             $calendar_output .= "\n\t\t<th scope=\"col\">";
             if ($dcount > 4)
             {
-                $calendar_output .= "<span style='color:#FF0000;'>";
+                $calendar_output .= "<span style='color:#990000;'>";
             }
             $calendar_output .= $day_name;
             if ($dcount > 4)
@@ -750,11 +750,139 @@
     
 	add_action('wp_logout', 'rt_logoutRedirect');
 	function rt_logoutRedirect(){
-        wp_redirect(site_url().'/login/');
+        //wp_redirect(site_url().'/login/');
         exit();
 	}
 
 	function __my_registration_redirect(){
-    	wp_redirect(site_url().'/login/');
-	}
-	add_filter( 'registration_redirect', '__my_registration_redirect' );
+//    	wp_redirect(site_url().'/login/');
+  }
+
+
+/**
+ * Agregar informacion extra al usuario
+ */
+add_filter( 'registration_redirect', '__my_registration_redirect' );
+add_action( 'show_user_profile', 'extra_user_profile_fields' );
+add_action( 'edit_user_profile', 'extra_user_profile_fields' );
+
+/**
+ * Agrega las opciones al admin de WordPress
+ */
+function extra_user_profile_fields( $user ) { 
+global $paises;
+  echo '<h3>Informacion extra</h3>
+        <table class="form-table">
+        <tr>
+          <th><label for="address">Direccion</label></th>
+          <td>
+            <textarea name="address" id="address">' .esc_attr( get_the_author_meta( 'address', $user->ID ) ). '</textarea><br />
+            <span class="description">Por favor ingrese su direccion</span>
+          </td>
+        </tr>
+        <tr>
+          <th><label for="city">Ciudad</label></th>
+          <td>
+            <input type="text" name="city" id="city" value="'. esc_attr( get_the_author_meta( 'city', $user->ID ) ) .'" class="regular-text" /><br />
+            <span class="description">Por favor ingrese su ciudad</span>
+          </td>
+        </tr>
+        <tr>
+          <th><label for="country">Pais</label></th>
+          <td>
+            <select name="country" id="country">
+              '.getPaises(esc_attr( get_the_author_meta( 'country', $user->ID ) )) .'  
+            </select>
+            <br />
+            <span class="description">Por favor eliga su pais.</span>
+          </td>
+        </tr>
+        <tr>
+          <th><label for="phone">Telefono</label></th>
+          <td>
+            <input type="text" name="phone" id="phone" value="'. esc_attr( get_the_author_meta( 'phone', $user->ID ) ) .'" class="regular-text" /><br />
+            <span class="description">Por favor ingrese su telefono</span>
+          </td>
+        </tr>
+    </table>';
+}
+/**
+ * Guarda los datos extra del usuario
+ */
+function save_extra_user_profile_fields( $user_id ) {
+  if ( !current_user_can( 'edit_user', $user_id ) ) { 
+    return false; 
+  }
+  update_user_meta( $user_id, 'address', $_POST['address'] );
+  update_user_meta( $user_id, 'city', $_POST['city'] );
+  update_user_meta( $user_id, 'country', $_POST['country'] );
+  update_user_meta( $user_id, 'phone', $_POST['phone'] );
+}
+
+
+// Agrega las opciones de usuario al hook de wordpress
+add_action( 'personal_options_update', 'save_extra_user_profile_fields' );
+add_action( 'edit_user_profile_update', 'save_extra_user_profile_fields' );
+
+/**
+ * Regresa los paises como option's para un select
+ * @param string $selected El pais que esta seleccionado
+ * @return string
+ */
+function getPaises($selected = false){
+  global $paises;
+  $return = '';
+  if( $selected == false || empty($selected))
+    $return .= "<option value=\"\">Seleccione uno</option>";
+  foreach($paises as $pais){
+    $is_selected = ($selected === $pais) ? "selected=\"selected\"" : '';
+    $return .= "<option value=\"".$pais."\"".$is_selected.">".$pais."</option>";
+  }
+  return $return;
+}
+
+/**
+ * Arreglo con los paises
+ * @var Array
+ */
+$paises = array(
+  'España', 'Argentina', 'México',
+  'Afganistán' , 'Albania' , 'Alemania' , 'Andorra' , 'Angola' , 
+  'Antigua y Barbuda' , 'Antillas Holandesas' , 'Arabia Saudí' , 
+  'Argelia' ,'Armenia' , 'Aruba' , 'Australia' , 
+  'Austria' , 'Azerbaiyán' , 'Bahamas' , 'Bahrein' , 'Bangladesh' , 
+  'Barbados' , 'Bélgica' , 'Belice' , 'Benín' , 'Bermudas' , 'Bielorrusia' , 
+  'Bolivia' , 'Botswana' , 'Bosnia' , 'Brasil' , 'Brunei' , 'Bulgaria' , 
+  'BurkinaFaso' , 'Burundi' , 'Bután' , 'Cabo Verde' , 'Camboya' , 
+  'Camerún' , 'Canadá' , 'Chad' , 'Chile' , 'China' , 'Chipre' , 'Colombia' , 
+  'Comoras' , 'Congo' , 'Corea del Norte' , 'Corea del Sur' , 'Costa de Marfil' , 
+  'Costa Rica' , 'Croacia' , 'Cuba' , 'Dinamarca' , 'Dominica' , 'Dubai' , 
+  'Ecuador' , 'Egipto' , 'El Salvador' , 'Emiratos Árabes Unidos' , 'Eritrea' , 
+  'Eslovaquia' , 'Eslovenia' ,'Estados Unidos de América' , 'Estonia' , 
+  'Etiopía' , 'Fiyi' , 'Filipinas' , 'Finlandia' , 'Francia' , 'Gabón' , 'Gambia' , 
+  'Georgia' , 'Ghana' , 'Grecia' , 'Guam' , 'Guatemala' , 'Guayana Francesa' , 
+  'Guinea-Bissau' , 'Guinea Ecuatorial' , 'Guinea' , 'Guyana' , 'Granada' , 
+  'Haití' , 'Honduras' , 'HongKong' , 'Hungría' , 'Holanda' , 'India' , 'Indonesia' , 
+  'Irak' , 'Irán' , 'Irlanda' , 'Islandia' , 'Islas Caimán' , 'Islas Marshall' , 
+  'Islas Pitcairn' , 'Islas Salomón' , 'Israel' , 'Italia' , 'Jamaica' , 'Japón' , 
+  'Jordania' , 'Kazajstán' , 'Kenia' , 'Kirguistán' , 'Kiribati' , 'Kósovo' , 
+  'Kuwait' , 'Laos' , 'Lesotho' , 'Letonia' , 'Líbano' , 'Liberia' , 'Libia' , 
+  'Liechtenstein' , 'Lituania' , 'Luxemburgo' , 'Macedonia' , 'Madagascar' , 
+  'Malasia' , 'Malawi' , 'Maldivas' , 'Malí' , 'Malta' , 'Marianas del Norte' , 
+  'Marruecos' , 'Mauricio' , 'Mauritania' ,'Micronesia' , 'Mónaco' , 
+  'Moldavia' , 'Mongolia' , 'Montenegro' , 'Mozambique' , 'Myanmar' , 'Namibia' , 
+  'Nauru' , 'Nepal' , 'Nicaragua' , 'Níger' , 'Nigeria' , 'Noruega' , 'NuevaZelanda' , 
+  'Omán' , 'OrdendeMalta' , 'Países Bajos' , 'Pakistán' , 'Palestina' , 'Palau' , 
+  'Panamá' , 'Papúa Nueva Guinea' , 'Paraguay' , 'Perú' , 'Polonia' , 'Portugal' , 
+  'Puerto Rico' , 'Qatar' , 'Reino Unido' , 'República Centro africana' , 
+  'República Checa' , 'República del Congo' , 'República Democrática del Congo' , 
+  'República Dominicana' , 'Ruanda' , 'Rumania' , 'Rusia' , 'Sáhara Occidental' , 
+  'SaintKitts-Nevis' , 'Samoa Americana' , 'Samoa' , 'San Marino' , 'Santa Lucía' , 
+  'Santo Tomé y Príncipe' , 'San Vicente y las Granadinas' , 'Senegal' , 'Serbia' , 
+  'Seychelles' , 'SierraLeona' , 'Singapur' , 'Siria' , 'Somalia' , 'SriLanka' , 
+  'Sudáfrica' , 'Sudán' , 'Suecia' , 'Suiza' , 'Suazilandia' , 'Tailandia' , 'Taiwán' , 
+  'Tanzania' , 'Tayikistán' , 'Tíbet' , 'TimorOriental' , 'Togo' , 'Tonga' , 
+  'Trinidad y Tobago' , 'Túnez' , 'Turkmenistán' , 'Turquía' , 'Tuvalu' , 'Ucrania' , 
+  'Uganda' , 'Uruguay' , 'Uzbequistán' , 'Vanuatu' , 'Vaticano' , 'Venezuela' , 
+  'Vietnam' , 'WallisyFutuna' , 'Yemen' , 'Yibuti' , 'Zambia' , 'Zaire' , 'Zimbabue'
+);

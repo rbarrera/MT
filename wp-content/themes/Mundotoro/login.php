@@ -10,12 +10,12 @@ Template Name: Login Form
             <div class="login-form">
             	<?php if(!is_user_logged_in ()) { ?>
                 <div class="login-box" >
-                	<h1>Inicio de Ses&iacute;on</h1>
+                	<h1>Inicio de Sesi&oacute;n</h1>
 
 <strong>- Es necesario registrarse de nuevo para poder acceder a esta seccion para proteger la confidencialidad de sus datos personales.</strong><br />
 (Ley Organica 15/1999, de 13 de diciembre, de Protecci&oacute;n de Datos de Car&aacute;cter Personal).<br/>
 - Debe estar registrado para consultar esta secci&oacute;n.<br />
-- Escriba el e-mail de registro y contrase&ntilde;a y presione <b>Iniciar</b> o <b>Registrese</b>.
+- Escriba el e-mail de registro y contrase&ntilde;a y presione <b>Iniciar</b> o <b>Reg&iacute;strese</b>.
 <form method="post" action="<?php echo site_url(); ?>/wp-login.php" id="loginform_custom" name="loginform_custom">
                       <label>Username</label>
                         <input type="text" class="u-name" name="log" />

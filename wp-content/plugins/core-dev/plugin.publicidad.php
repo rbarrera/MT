@@ -15,7 +15,7 @@
     
     class CorePublicidad extends coreDevExtends{
         public function __construct(){            
-            $this->crearPost(array('Publicidad', 'Publicidad'), 'Publicidad', 'postpublicimt', array('title'), array('tipostaximt'));
+            $this->crearPost(array('Publicidad', 'Publicidad'), 'Publicidad', 'postpublicimt', array('title'), array('tipostaximt'),false);
             $this->crearTaxi(array('Tipo', 'Tipos'), 'Tipos', 'tipostaximt', 'postpublicimt');
             
             $this->setFiltroTaxi('tipostaximt');

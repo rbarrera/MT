@@ -14,7 +14,7 @@
             
         }
         
-        public function crearPost($PaLabel, $PsMenu, $PsNombre, $PaSoporte, $PaTaxis = array()){
+        public function crearPost($PaLabel, $PsMenu, $PsNombre, $PaSoporte, $PaTaxis = array(),$Buscable = true){
             $LsSingle   = strtolower($PaLabel[0]);
             $LsPlural   = strtolower($PaLabel[1]);
             $this->CsLabel = $PaLabel[1];
@@ -27,10 +27,11 @@
         		'show_in_menu'    => false,
         		'capability_type' => 'post',
         		'hierarchical'    => false,
-                'map_meta_cap'    => true,  
+            'map_meta_cap'    => true,  
         		'rewrite'         => array('slug' => $LsSingle),
         		'query_var'       => true,
-        		'menu_position'   => 6,
+            'menu_position'   => 6,
+            'exclude_from_search' => !$Buscable,
         		'supports'        => $PaSoporte,
         		'taxonomies'      => $PaTaxis,
         		'labels'          => array(

@@ -58,7 +58,7 @@
     
     class coreDev{
         
-        private $CbDesarrollo       = false;
+        private $CbDesarrollo       = true;
         private $CbAjustes          = true;
         
         

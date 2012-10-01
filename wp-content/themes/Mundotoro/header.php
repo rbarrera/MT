@@ -60,7 +60,7 @@
 									echo '<span>Hola '. $current_user->display_name .'</span> ';
 								endif;			
 						?>
-                        <form method="get" id="searchform" action="<?php bloginfo('home'); ?>"><a href="javascript: void(0)" onClick="subirbuscar()"></a><input type="text" size="18" placeholder="SEARCH..." name="s" id="s" onKeyPress="" /></form>
+                        <form method="get" id="searchform" action="<?php bloginfo('home'); ?>"><a href="javascript: void(0)" onClick="subirbuscar()"></a><input type="text" size="18" placeholder="SEARCH..." name="s" id="s" value="<?php echo get_search_query() ?>" onKeyPress="" /></form>
                     </span>
                 </nav>
                 <div id="logo">
